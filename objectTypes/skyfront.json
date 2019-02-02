@@ -1,0 +1,19 @@
+{
+	"name": "SkyFront",
+	"plugin-id": "TiledBg",
+	"sid": 863739478860962,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"image": {
+		"width": 160,
+		"height": 160,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "C:\\Users\\shilo\\Desktop\\tumblr_inline_mns7t8sLXP1qz4rgp2.png",
+		"exportFormat": "png",
+		"exportQuality": 0.8,
+		"imageSpriteId": 13
+	}
+}

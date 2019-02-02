@@ -1,0 +1,205 @@
+{
+	"name": "Camera Events",
+	"events": [
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Camera",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Zooming",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "ZOOM_START_SCALE",
+							"type": "number",
+							"initialValue": "1",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": true,
+							"sid": 502403692934875
+						},
+						{
+							"eventType": "variable",
+							"name": "ZOOM_SCALE",
+							"type": "number",
+							"initialValue": "1.1",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": true,
+							"sid": 988839189557745
+						},
+						{
+							"eventType": "variable",
+							"name": "ZOOM_MIN",
+							"type": "number",
+							"initialValue": "0.1",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": true,
+							"sid": 346829524600277
+						},
+						{
+							"eventType": "variable",
+							"name": "ZOOM_MAX",
+							"type": "number",
+							"initialValue": "10",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": true,
+							"sid": 480895445568106
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-start-of-layout",
+									"objectClass": "System",
+									"sid": 148216241426705
+								}
+							],
+							"actions": [
+								{
+									"id": "call-function",
+									"objectClass": "Function",
+									"sid": 180150330401583,
+									"parameters": {
+										"name": "\"cameraResetZoom\"",
+										"parameter-n": []
+									}
+								}
+							],
+							"sid": 433721815532865
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-click",
+									"objectClass": "Mouse",
+									"sid": 519759870623392,
+									"parameters": {
+										"mouse-button": "middle",
+										"click-type": "clicked"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "call-function",
+									"objectClass": "Function",
+									"sid": 387030714427341,
+									"parameters": {
+										"name": "\"cameraResetZoom\"",
+										"parameter-n": []
+									}
+								}
+							],
+							"sid": 528226115257305
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-mouse-wheel",
+									"objectClass": "Mouse",
+									"sid": 177698291915728,
+									"parameters": {
+										"direction": "down"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-layout-scale",
+									"objectClass": "System",
+									"sid": 294520257619075,
+									"parameters": {
+										"scale": "max(LayoutScale / ZOOM_SCALE, ZOOM_MIN)"
+									}
+								}
+							],
+							"sid": 708543828948547
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-mouse-wheel",
+									"objectClass": "Mouse",
+									"sid": 200695428549838,
+									"parameters": {
+										"direction": "up"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-layout-scale",
+									"objectClass": "System",
+									"sid": 578899296656861,
+									"parameters": {
+										"scale": "min(LayoutScale * ZOOM_SCALE, ZOOM_MAX)"
+									}
+								}
+							],
+							"sid": 961691125632942
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-function",
+									"objectClass": "Function",
+									"sid": 574945125362983,
+									"parameters": {
+										"name": "\"cameraResetZoom\""
+									}
+								}
+							],
+							"actions": [],
+							"sid": 535517899656157,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 488193037146231,
+											"parameters": {
+												"first-value": "LayoutScale",
+												"comparison": 1,
+												"second-value": "ZOOM_START_SCALE"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-layout-scale",
+											"objectClass": "System",
+											"sid": 686763332951603,
+											"parameters": {
+												"scale": "min(max(ZOOM_START_SCALE, ZOOM_MIN), ZOOM_MAX)"
+											}
+										}
+									],
+									"sid": 750588324682188
+								}
+							]
+						}
+					],
+					"sid": 962039947702695
+				}
+			],
+			"sid": 281959338305671
+		}
+	],
+	"sid": 193352418097345
+}

@@ -1,0 +1,22 @@
+{
+	"name": "Character",
+	"plugin-id": "Sprite",
+	"sid": 137738428496757,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Platform",
+			"name": "Platform",
+			"sid": 654129105134393
+		},
+		{
+			"behaviorId": "jumpthru",
+			"name": "Jumpthru",
+			"sid": 288937679516761
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"Player"
+	]
+}

@@ -1,0 +1,500 @@
+{
+	"name": "Network Events",
+	"events": [
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Network",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "ENABLE_LOCAL_INPUT_PREDICTION",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": true,
+					"sid": 504145109392361
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Signalling",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "GAME_NAME",
+							"type": "string",
+							"initialValue": "Shilocity-MultiplayerPlatformerTest",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": true,
+							"sid": 773977507284842
+						},
+						{
+							"eventType": "variable",
+							"name": "INSTANCE_NAME",
+							"type": "string",
+							"initialValue": "default",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": true,
+							"sid": 617436151340423
+						},
+						{
+							"eventType": "variable",
+							"name": "ROOM_NAME",
+							"type": "string",
+							"initialValue": "default",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": true,
+							"sid": 423209497240477
+						},
+						{
+							"eventType": "variable",
+							"name": "MAX_PEERS",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": true,
+							"sid": 689445438504271
+						},
+						{
+							"eventType": "variable",
+							"name": "username",
+							"type": "string",
+							"initialValue": "Cubey",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": false,
+							"sid": 767992847816954
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-start-of-layout",
+									"objectClass": "System",
+									"sid": 706622040344461
+								}
+							],
+							"actions": [],
+							"sid": 602557215375239,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "supports-multiplayer",
+											"objectClass": "Multiplayer",
+											"sid": 900085913772593
+										}
+									],
+									"actions": [
+										{
+											"id": "add-client-input-value",
+											"objectClass": "Multiplayer",
+											"sid": 881978596654270,
+											"parameters": {
+												"tag": "\"input\"",
+												"precision": "very-low-uint8-1-byte",
+												"interpolation": "none"
+											}
+										},
+										{
+											"id": "sync-object",
+											"objectClass": "Multiplayer",
+											"sid": 876982339207609,
+											"parameters": {
+												"object": "Player",
+												"data": "position-only",
+												"precision": "normal-float-4-bytes",
+												"bandwidth": "normal-bandwidth-unpredictable"
+											}
+										},
+										{
+											"id": "sync-instance-variable",
+											"objectClass": "Multiplayer",
+											"sid": 631555651862642,
+											"parameters": {
+												"object": "Player",
+												"instance-variable": {
+													"name": "peerInput",
+													"objectClass": "Player"
+												},
+												"precision": "very-low-uint8-1-byte",
+												"interpolation": "none",
+												"client-value-tag": "\"input\""
+											}
+										},
+										{
+											"id": "sync-instance-variable",
+											"objectClass": "Multiplayer",
+											"sid": 210961657945340,
+											"parameters": {
+												"object": "Player",
+												"instance-variable": {
+													"name": "peerColor",
+													"objectClass": "Player"
+												},
+												"precision": "normal-float-4-bytes",
+												"interpolation": "none",
+												"client-value-tag": "\"\""
+											}
+										},
+										{
+											"id": "connect",
+											"objectClass": "Multiplayer",
+											"sid": 439593079678445,
+											"parameters": {
+												"server": "\"wss://multiplayer.scirra.com\""
+											}
+										}
+									],
+									"sid": 883505616360697
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 275636813432581
+										}
+									],
+									"actions": [
+										{
+											"id": "alert",
+											"objectClass": "Browser",
+											"sid": 471194931455678,
+											"parameters": {
+												"message": "\"Error: Your client does not support Multiplayer.\""
+											}
+										}
+									],
+									"sid": 341997713781904
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-connected",
+									"objectClass": "Multiplayer",
+									"sid": 919690007840824
+								}
+							],
+							"actions": [
+								{
+									"id": "log-in",
+									"objectClass": "Multiplayer",
+									"sid": 199921258900685,
+									"parameters": {
+										"alias": "username"
+									}
+								}
+							],
+							"sid": 862425057177094
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-logged-in",
+									"objectClass": "Multiplayer",
+									"sid": 858670975312291
+								}
+							],
+							"actions": [
+								{
+									"id": "join-room",
+									"objectClass": "Multiplayer",
+									"sid": 699289991111784,
+									"parameters": {
+										"game": "GAME_NAME",
+										"instance": "INSTANCE_NAME",
+										"room": "ROOM_NAME",
+										"max-peers": "MAX_PEERS"
+									}
+								}
+							],
+							"sid": 658259830781482
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-joined-room",
+									"objectClass": "Multiplayer",
+									"sid": 527373423160450
+								}
+							],
+							"actions": [
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 336355533398045,
+									"parameters": {
+										"group-name": "\"Player\"",
+										"state": "activated"
+									}
+								}
+							],
+							"sid": 766018788625058,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-host",
+											"objectClass": "Multiplayer",
+											"sid": 908509252849470
+										}
+									],
+									"actions": [
+										{
+											"id": "set-group-active",
+											"objectClass": "System",
+											"sid": 269327971133640,
+											"parameters": {
+												"group-name": "\"Server\"",
+												"state": "activated"
+											}
+										}
+									],
+									"sid": 899072261847151
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 256984648895602
+										}
+									],
+									"actions": [
+										{
+											"id": "set-group-active",
+											"objectClass": "System",
+											"sid": 977268948690052,
+											"parameters": {
+												"group-name": "\"Client\"",
+												"state": "activated"
+											}
+										}
+									],
+									"sid": 612673536487378
+								}
+							]
+						}
+					],
+					"sid": 408860446576180
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Server",
+					"description": "",
+					"isActiveOnStart": false,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "trigger-once-while-true",
+									"objectClass": "System",
+									"sid": 311389549822199
+								}
+							],
+							"actions": [
+								{
+									"id": "call-function",
+									"objectClass": "Function",
+									"sid": 806248370087481,
+									"parameters": {
+										"name": "\"playerSpawn\"",
+										"parameter-n": [
+											"Multiplayer.MyID"
+										]
+									}
+								}
+							],
+							"sid": 356632032887712
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-peer-connected",
+									"objectClass": "Multiplayer",
+									"sid": 672027890607649
+								}
+							],
+							"actions": [
+								{
+									"id": "call-function",
+									"objectClass": "Function",
+									"sid": 143924935869760,
+									"parameters": {
+										"name": "\"playerSpawn\"",
+										"parameter-n": [
+											"Multiplayer.PeerID"
+										]
+									}
+								}
+							],
+							"sid": 439275573255385
+						}
+					],
+					"sid": 620918325605803
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Client",
+					"description": "",
+					"isActiveOnStart": false,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-created",
+									"objectClass": "Player",
+									"sid": 780848229278674
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Player",
+									"sid": 663925400562962,
+									"parameters": {
+										"instance-variable": "peerID",
+										"value": "Multiplayer.PeerID"
+									}
+								},
+								{
+									"id": "associate-object-with-peer",
+									"objectClass": "Multiplayer",
+									"sid": 509349928666250,
+									"parameters": {
+										"object": "Player",
+										"peer-id": "Player.peerID"
+									}
+								},
+								{
+									"id": "set-default-color",
+									"objectClass": "Player",
+									"sid": 663573874760216,
+									"parameters": {
+										"color": "Self.peerColor"
+									}
+								}
+							],
+							"sid": 471842255890351,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 469674149445826,
+											"parameters": {
+												"variable": "ENABLE_LOCAL_INPUT_PREDICTION"
+											}
+										},
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "Player",
+											"sid": 155984186127369,
+											"parameters": {
+												"instance-variable": "peerID",
+												"comparison": 0,
+												"value": "Multiplayer.MyID"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "enable-local-input-prediction",
+											"objectClass": "Multiplayer",
+											"sid": 456278483305275,
+											"parameters": {
+												"object": "Player"
+											}
+										}
+									],
+									"sid": 697108977097602
+								}
+							]
+						}
+					],
+					"sid": 905394127301213
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Common",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-created",
+									"objectClass": "Player",
+									"sid": 892686044570886
+								}
+							],
+							"actions": [],
+							"sid": 357505122985973,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "Player",
+											"sid": 711791794991882,
+											"parameters": {
+												"instance-variable": "peerID",
+												"comparison": 0,
+												"value": "Multiplayer.MyID"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-enabled",
+											"objectClass": "Player",
+											"sid": 646235718004661,
+											"behaviorType": "ScrollTo",
+											"parameters": {
+												"state": "enabled"
+											}
+										}
+									],
+									"sid": 613879264806636
+								}
+							]
+						}
+					],
+					"sid": 492767902480814
+				}
+			],
+			"sid": 323036125682025
+		}
+	],
+	"sid": 664490155271747
+}

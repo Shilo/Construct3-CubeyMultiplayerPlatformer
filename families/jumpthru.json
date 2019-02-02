@@ -1,0 +1,17 @@
+{
+	"name": "Jumpthru",
+	"plugin-id": "Sprite",
+	"sid": 343536260431325,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "jumpthru",
+			"name": "Jumpthru",
+			"sid": 814129058592414
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"Platform"
+	]
+}
